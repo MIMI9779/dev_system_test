@@ -1,13 +1,7 @@
 {
-  "name": "bonsai-gemini-dev",
+  "name": "gemini-uv-codespace",
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
-    }
-  },
-  "forwardPorts": [8080],
-  "postCreateCommand": "npm install -g @google/gemini-cli && uv venv && . .venv/bin/activate && uv pip install openai"
+  "forwardPorts": [8080]
 }

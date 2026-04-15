@@ -2,32 +2,38 @@
 
 ## codespace 作成直後にやること
 ### 1. 仮想環境を導入してローカルLLM・Bonsaiのセットアップ
+- まず, interface.pyを一番上の階層に作成する
+  - コミット, マージしてみよう
+  - 左のソース管理アイコンを押し, interface.pyの+ボタンを押す。メッセージで変更内容を簡潔に書き, コミットボタンを押し, さらに変更を同期ボタンを押す
+- 以下の手順を, codespace上のターミナルで1行ずつ行う
 ```Bash
 git clone https://github.com/PrismML-Eng/Bonsai-demo.git
 cd Bonsai-demo
 uv venv
 source .venv/bin/activate
 uv pip install openai
-BONSAI_MODEL=1.7B
+export BONSAI_MODEL=1.7B
 ./setup.sh
 ```
   - git cloneで, BonsaiのリポジトリからBonsai一式を落としてくる
   - cd Bonsai-demo で落としてきたBonsaiのフォルダに移動
   - uvで仮想環境venvを作成
-    - 仮想環境下じゃないと, openaiを入れられない
+    - 今回のPython環境はシステム管理されていて, そのままでは後述のopenaiをインストールできないため, 仮想環境venvの中にインストールする
+    - Dockerによる仮想環境内で, さらにuvによる仮想環境venvを作るイメージ
   - source .venv/bin/activateで仮想環境venvに入る
-  - uv pip install openaiで仮想環境下にopenaiライブラリをインストール
-  - BONSAI_MODEL=1.7Bで, 利用するBonsaiのパラメタ数を1.7Bにする
+  - uv pip install openaiで仮想環境venv下にopenaiライブラリをインストール
+  - export BONSAI_MODEL=1.7Bで, セットアップ時に使うBonsaiのモデルサイズを 1.7B に指定する
+  - ./setup.shで, Bonsaiのセットアップスクリプトを走らせる
 
 ### 2. Bonsaiサーバの起動
 ```Bash
 scripts/start_llama_server.sh
 ```
-- scripts/start_llama_server.shで, scriptsフォルダ中のstart_llama_server.sh起動
+- scripts/start_llama_server.shで, scripts フォルダ内の start_llama_server.sh を実行する
 
 ### 3. 別のターミナルを開いて, 対話用プログラムを起動
 ```Bash
-cd /workspaces/dev_system_test/Bonsai-demo
+cd Bonsai-demo
 source .venv/bin/activate
 python3 interface.py
 ```
